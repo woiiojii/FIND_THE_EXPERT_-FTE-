@@ -4,15 +4,15 @@ import React from "react";
 import { CATEGORIES } from "@/lib/seedData";
 import {
   Code,
+  Smartphone,
   Palette,
   Brain,
-  TrendingUp,
-  Megaphone,
-  Sprout,
-  Scale,
+  ShieldCheck,
+  Cloud,
   Cpu,
+  Database,
+  Server,
   Layers,
-  Anchor,
 } from "lucide-react";
 
 interface CategoryFilterProps {
@@ -24,14 +24,14 @@ const CATEGORY_ICONS: Record<string, React.ElementType> = {
   All: Layers,
   Semua: Layers,
   "Technology & Software": Code,
+  "Mobile App Development": Smartphone,
   "UI/UX & Product Design": Palette,
   "Data Science & AI": Brain,
-  "Agriculture & Agrotechnology": Sprout,
-  "Marine & Maritime Logistics": Anchor,
-  "Business & Accounting": TrendingUp,
-  "Tourism & Digital Marketing": Megaphone,
-  "Legal & Business Compliance": Scale,
+  "Cybersecurity & Network": ShieldCheck,
+  "Cloud & DevOps": Cloud,
   "Robotics & Applied IoT": Cpu,
+  "Database & Systems Architecture": Database,
+  "IT Support & Infrastructure": Server,
 };
 
 export const CategoryFilter: React.FC<CategoryFilterProps> = ({

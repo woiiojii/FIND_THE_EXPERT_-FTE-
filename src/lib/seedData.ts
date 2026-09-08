@@ -3,28 +3,28 @@ import { User, Postingan, ChatMessage, Review } from "@/types";
 export const CATEGORIES = [
   "All",
   "Technology & Software",
+  "Mobile App Development",
   "UI/UX & Product Design",
   "Data Science & AI",
-  "Agriculture & Agrotechnology",
-  "Marine & Maritime Logistics",
-  "Business & Accounting",
-  "Tourism & Digital Marketing",
-  "Legal & Business Compliance",
+  "Cybersecurity & Network",
+  "Cloud & DevOps",
   "Robotics & Applied IoT",
+  "Database & Systems Architecture",
+  "IT Support & Infrastructure",
 ];
 
-// Bidirectional category matching for legacy Indonesian database values
+// Bidirectional category matching for legacy and bilingual database values
 const CATEGORY_MAP: Record<string, string[]> = {
   All: ["All", "Semua"],
-  "Technology & Software": ["Technology & Software", "Teknologi & Software", "Web Developer", "Teknologi"],
-  "UI/UX & Product Design": ["UI/UX & Product Design", "Desain UI/UX & Produk", "Desain"],
-  "Data Science & AI": ["Data Science & AI", "Data Science"],
-  "Agriculture & Agrotechnology": ["Agriculture & Agrotechnology", "Pertanian, Cengkeh & Kelapa", "Pertanian & Agroteknologi", "Pertanian"],
-  "Marine & Maritime Logistics": ["Marine & Maritime Logistics", "Perikanan & Logistik Maritim", "Perikanan"],
-  "Business & Accounting": ["Business & Accounting", "Bisnis & Akuntansi UMKM", "Bisnis & Akuntansi", "Bisnis"],
-  "Tourism & Digital Marketing": ["Tourism & Digital Marketing", "Pariwisata & Digital Marketing", "Digital Marketing"],
-  "Legal & Business Compliance": ["Legal & Business Compliance", "Hukum & Legalitas Usaha", "Hukum"],
-  "Robotics & Applied IoT": ["Robotics & Applied IoT", "Robotika & IoT Terapan", "Robotika"],
+  "Technology & Software": ["Technology & Software", "Teknologi & Software", "Web Developer", "Teknologi", "Software Engineering", "Fullstack"],
+  "Mobile App Development": ["Mobile App Development", "Mobile Developer", "Android", "iOS", "Flutter", "React Native"],
+  "UI/UX & Product Design": ["UI/UX & Product Design", "Desain UI/UX & Produk", "Desain", "UI/UX", "Product Design"],
+  "Data Science & AI": ["Data Science & AI", "Data Science", "Machine Learning", "AI", "Artificial Intelligence"],
+  "Cybersecurity & Network": ["Cybersecurity & Network", "Keamanan Siber & Jaringan", "Cybersecurity", "Network", "Jaringan", "Security"],
+  "Cloud & DevOps": ["Cloud & DevOps", "Cloud Computing", "DevOps", "Cloud", "SRE", "Infrastructure"],
+  "Robotics & Applied IoT": ["Robotics & Applied IoT", "Robotika & IoT Terapan", "Robotika", "IoT", "Internet of Things", "Hardware"],
+  "Database & Systems Architecture": ["Database & Systems Architecture", "Basis Data & Arsitektur Sistem", "Database", "DBA", "System Architect"],
+  "IT Support & Infrastructure": ["IT Support & Infrastructure", "Dukungan IT & Infrastruktur", "IT Support", "Helpdesk", "Infrastruktur IT"],
 };
 
 export const matchCategory = (itemCategory?: string, selectedCategory: string = "All"): boolean => {

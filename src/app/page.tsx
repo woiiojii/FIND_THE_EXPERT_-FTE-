@@ -50,12 +50,12 @@ const FEATURES = [
 ];
 
 const AREAS = [
-  { name: "Manado", desc: "Technology & Professional Services", emoji: "🏙️" },
-  { name: "Tomohon", desc: "Agrotechnology & Horticulture", emoji: "🌺" },
-  { name: "Bitung", desc: "Maritime Logistics & Fisheries", emoji: "⚓" },
-  { name: "Minahasa", desc: "Agrotech & Cultural Heritage", emoji: "🌾" },
-  { name: "Kotamobagu", desc: "Business & MSME Incubation", emoji: "🏪" },
-  { name: "Sangihe", desc: "Marine Tourism & Coastal Economy", emoji: "🏝️" },
+  { name: "Manado", desc: "Software Development & IT Hub", emoji: "🏙️" },
+  { name: "Tomohon", desc: "IoT & Smart Tech Systems", emoji: "💻" },
+  { name: "Bitung", desc: "Enterprise IT & Logistics Tech", emoji: "🌐" },
+  { name: "Minahasa", desc: "Academic IT & AI Research", emoji: "🎓" },
+  { name: "Kotamobagu", desc: "Digital Transformation & Web Dev", emoji: "🚀" },
+  { name: "Sangihe", desc: "Network Infrastructure & Remote IT", emoji: "📡" },
 ];
 
 export default function LandingPage() {
@@ -160,7 +160,7 @@ export default function LandingPage() {
 
           {/* Subtitle */}
           <p className="text-base sm:text-xl text-slate-600 dark:text-slate-300 leading-relaxed max-w-2xl mx-auto mb-10">
-            Connect directly with proven specialists — from software engineering and agrotechnology to logistics and corporate legal consulting in North Sulawesi.
+            Connect directly with proven IT specialists — from software engineering and cybersecurity to cloud computing, UI/UX, and AI solutions in North Sulawesi.
           </p>
 
           {/* CTA Buttons */}
@@ -188,7 +188,7 @@ export default function LandingPage() {
             {[
               { value: "2 Roles", label: "Experts & Clients" },
               { value: "6 Regions", label: "North Sulawesi Coverage" },
-              { value: "9+ Fields", label: "Domain Specializations" },
+              { value: "9+ Fields", label: "IT Specializations" },
             ].map((stat) => (
               <div key={stat.label}>
                 <p className="text-2xl sm:text-3xl font-extrabold text-slate-900 dark:text-white">{stat.value}</p>

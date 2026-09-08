@@ -38,6 +38,39 @@ export default function HomePage() {
   const [isCreatePostOpen, setIsCreatePostOpen] = useState(false);
   const [isAvailable, setIsAvailable] = useState(true);
   const [activeTab, setActiveTab] = useState<"MY_POSTS" | "ALL_POSTS">("MY_POSTS");
+  const [searchError, setSearchError] = useState("");
+  const [isSearching, setIsSearching] = useState(false);
+
+  // Search Map handler: validate experts in DB first, then navigate
+  const handleSearchMap = () => {
+    const query = searchQuery.trim();
+
+    // Always require a search query before going to the map
+    if (!query) {
+      setSearchError("Masukkan kata kunci keahlian atau nama ahli IT terlebih dahulu sebelum mencari di peta.");
+      return;
+    }
+
+    setIsSearching(true);
+    setSearchError("");
+
+    // Search the expert database synchronously (data already loaded via Convex reactive query)
+    const matchedExperts = getFilteredExperts({
+      searchQuery: query,
+      sortBy: "rating",
+    });
+
+    setIsSearching(false);
+
+    if (matchedExperts.length === 0) {
+      setSearchError(`Tidak ada ahli IT ditemukan untuk "${query}". Coba kata kunci lain seperti nama, keahlian, atau bidang spesialisasi.`);
+      return;
+    }
+
+    // Experts found → navigate to map with pre-filled query
+    const params = new URLSearchParams({ q: query });
+    router.push(`/find?${params.toString()}`);
+  };
 
   // Redirect to landing page if not authenticated
   useEffect(() => {
@@ -455,36 +488,59 @@ export default function HomePage() {
             </h1>
 
             <p className="text-blue-100 text-xs sm:text-sm leading-relaxed max-w-xl">
-              Consult project roadblocks, business challenges, research, or agriculture directly with verified practitioners across North Sulawesi without intermediaries.
+              Consult software architecture, web/mobile development, AI models, cybersecurity, or cloud infrastructure directly with verified IT experts across North Sulawesi without intermediaries.
             </p>
 
             {/* Quick Search Bar */}
-            <div className="pt-1 max-w-xl">
-              <div className="flex items-center gap-2 bg-white dark:bg-slate-900 rounded-2xl p-1.5 shadow-xl border border-white/20">
+            <div className="pt-1 max-w-xl space-y-1.5">
+              <div className={`flex items-center gap-2 bg-white dark:bg-slate-900 rounded-2xl p-1.5 shadow-xl transition-all ${
+                searchError
+                  ? "border-2 border-red-400/80"
+                  : "border border-white/20"
+              }`}>
                 <Search className="w-4 h-4 text-slate-400 ml-2.5 shrink-0" />
                 <input
                   type="text"
                   value={searchQuery}
-                  onChange={(e) => setSearchQuery(e.target.value)}
+                  onChange={(e) => {
+                    setSearchQuery(e.target.value);
+                    if (searchError) setSearchError("");
+                  }}
+                  onKeyDown={(e) => {
+                    if (e.key === "Enter") handleSearchMap();
+                  }}
                   placeholder="Search expertise, mentor name, or keywords..."
                   className="w-full bg-transparent text-slate-900 dark:text-white placeholder-slate-400 text-xs sm:text-sm focus:outline-none px-2"
                 />
                 {searchQuery && (
                   <button
                     type="button"
-                    onClick={() => setSearchQuery("")}
+                    onClick={() => { setSearchQuery(""); setSearchError(""); }}
                     className="text-xs text-slate-400 hover:text-slate-600 px-1 cursor-pointer"
                   >
                     ×
                   </button>
                 )}
-                <Link
-                  href="/find"
-                  className="px-4 py-2 rounded-xl bg-blue-600 hover:bg-blue-700 text-white font-bold text-xs shadow-sm transition shrink-0 btn-press"
+                <button
+                  type="button"
+                  onClick={handleSearchMap}
+                  disabled={isSearching}
+                  className="px-4 py-2 rounded-xl bg-blue-600 hover:bg-blue-700 disabled:bg-blue-400 text-white font-bold text-xs shadow-sm transition shrink-0 btn-press flex items-center gap-1.5"
                 >
+                  {isSearching ? (
+                    <span className="w-3.5 h-3.5 border-2 border-white border-t-transparent rounded-full animate-spin" />
+                  ) : (
+                    <Search className="w-3 h-3" />
+                  )}
                   Search Map
-                </Link>
+                </button>
               </div>
+              {searchError && (
+                <div className="flex items-center gap-2 px-3 py-2 bg-red-500/20 backdrop-blur-sm border border-red-400/40 rounded-xl text-xs text-red-100 animate-fadeIn">
+                  <span>⚠️</span>
+                  <span>{searchError}</span>
+                </div>
+              )}
             </div>
 
             {/* Action Buttons */}
@@ -511,7 +567,7 @@ export default function HomePage() {
                 <div className="flex items-center gap-2">
                   <span className="w-2.5 h-2.5 rounded-full bg-emerald-400 animate-pulse" />
                   <span className="text-xs font-extrabold uppercase tracking-wider text-white">
-                    Popular Fields in North Sulawesi
+                    Popular IT Fields in North Sulawesi
                   </span>
                 </div>
                 <span className="text-[11px] text-blue-200 font-medium">Tap to filter</span>
@@ -520,11 +576,11 @@ export default function HomePage() {
               <div className="grid grid-cols-2 gap-2">
                 {[
                   { name: "Technology & Software", icon: "💻" },
-                  { name: "Agriculture & Agrotechnology", icon: "🌾" },
-                  { name: "Business & Accounting", icon: "📈" },
+                  { name: "Mobile App Development", icon: "📱" },
                   { name: "UI/UX & Product Design", icon: "🎨" },
-                  { name: "Legal & Business Compliance", icon: "⚖️" },
                   { name: "Data Science & AI", icon: "🤖" },
+                  { name: "Cybersecurity & Network", icon: "🛡️" },
+                  { name: "Cloud & DevOps", icon: "☁️" },
                 ].map((item) => (
                   <button
                     key={item.name}

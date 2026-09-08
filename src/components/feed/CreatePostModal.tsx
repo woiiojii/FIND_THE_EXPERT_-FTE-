@@ -161,7 +161,7 @@ export const CreatePostModal: React.FC<CreatePostModalProps> = ({
               required
               value={judul}
               onChange={(e) => setJudul(e.target.value)}
-              placeholder="Contoh: Implementasi Sistem Monitoring Pertanian Cerdas di Minahasa..."
+              placeholder="Contoh: Implementasi Sistem Microservices & Real-Time Monitoring..."
               className="w-full px-4 py-2.5 rounded-2xl border border-slate-200 dark:border-slate-700 bg-slate-50 dark:bg-slate-800 text-slate-900 dark:text-white text-sm focus:outline-none focus:ring-2 focus:ring-blue-500"
             />
           </div>

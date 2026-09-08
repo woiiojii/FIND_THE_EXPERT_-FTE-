@@ -1,8 +1,9 @@
 "use client";
 
-import React, { useState } from "react";
+import React, { useState, useEffect, Suspense } from "react";
 import { useAuth } from "@/context/AuthContext";
 import { useData } from "@/context/DataContext";
+import { useSearchParams } from "next/navigation";
 import { CategoryFilter } from "@/components/map/CategoryFilter";
 import { RadiusSlider } from "@/components/map/RadiusSlider";
 import { ExpertMap } from "@/components/map/ExpertMap";
@@ -18,9 +19,11 @@ import {
 } from "lucide-react";
 import Link from "next/link";
 
-export default function FindExpertPage() {
+function FindExpertInner() {
   const { currentUser, userLocation, locationName } = useAuth();
   const { getFilteredExperts } = useData();
+
+  const searchParams = useSearchParams();
 
   const [selectedCategory, setSelectedCategory] = useState("All");
   const [radiusKm, setRadiusKm] = useState<number>(35);
@@ -28,6 +31,12 @@ export default function FindExpertPage() {
   const [sortBy, setSortBy] = useState<"distance" | "rating" | "reviews">("distance");
   const [viewMode, setViewMode] = useState<"both" | "map" | "list">("both");
   const [selectedExpert, setSelectedExpert] = useState<ExpertWithDistance | null>(null);
+
+  // Pre-fill search query from URL ?q= param (passed by Home page Search Map)
+  useEffect(() => {
+    const q = searchParams.get("q");
+    if (q) setSearchQuery(q);
+  }, [searchParams]);
 
   // Compute filtered experts
   const filteredExperts = getFilteredExperts({
@@ -219,5 +228,17 @@ export default function FindExpertPage() {
         )}
       </div>
     </div>
+  );
+}
+
+export default function FindExpertPage() {
+  return (
+    <Suspense fallback={
+      <div className="min-h-screen flex items-center justify-center">
+        <div className="w-10 h-10 rounded-full border-4 border-blue-600 border-t-transparent animate-spin" />
+      </div>
+    }>
+      <FindExpertInner />
+    </Suspense>
   );
 }

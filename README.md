@@ -18,11 +18,11 @@ Untuk keperluan pengujian sistem dan evaluasi fitur, dapat menggunakan kredensia
 # BAB 1: ANALISIS KEBUTUHAN
 
 ## 1.1 Ruang Lingkup
-Proyek pengembangan perangkat lunak **Find The Expert (FTE)** adalah sebuah platform berbasis web responsif (*progressive web platform*) yang dirancang untuk menjembatani kebutuhan konsultasi profesional antara masyarakat umum (*Client / User Biasa*) dengan para praktisi dan mentor bersertifikasi (*Expert / Ahli*). 
+Proyek pengembangan perangkat lunak **Find The Expert (FTE)** adalah sebuah platform berbasis web responsif (*progressive web platform*) yang dirancang untuk menjembatani kebutuhan konsultasi profesional antara masyarakat umum (*Client / User Biasa*) dengan para praktisi dan mentor bersertifikasi (*Expert / Ahli*) di bidang Teknologi Informasi (IT). 
 
 Ruang lingkup sistem ini mencakup:
 1. **Pendaftaran dan Autentikasi Pengguna**: Registrasi akun terpisah berdasarkan peran (*Role-Based Access Control* - RBAC: `USER_BIASA` dan `AHLI`), proses masuk (*login*), pengelolaan sesi (*session management*), serta personalisasi profil pengguna.
-2. **Pencarian dan Penemuan Mentor Berbasis Geospasial**: Penentuan posisi pengguna melalui koordinat GPS (Latitude & Longitude), visualisasi sebaran mentor di peta interaktif, filter radius jarak dinamis (5 km s/d 50 km) dengan algoritma *Haversine Formula*, estimasi waktu tempuh berkendara (*Estimated Time of Arrival* / ETA), dan penyaringan berdasarkan kategori bidang keahlian (Teknologi Informasi, Pertanian, Kelautan, Bisnis, Desain, Bahasa, dll).
+2. **Pencarian dan Penemuan Mentor Berbasis Geospasial**: Penentuan posisi pengguna melalui koordinat GPS (Latitude & Longitude), visualisasi sebaran mentor di peta interaktif, filter radius jarak dinamis (5 km s/d 50 km) dengan algoritma *Haversine Formula*, estimasi waktu tempuh berkendara (*Estimated Time of Arrival* / ETA), dan penyaringan berdasarkan kategori bidang keahlian IT (Software Engineering & Web, Mobile App Development, UI/UX & Product Design, Data Science & AI, Cybersecurity & Network, Cloud & DevOps, Robotics & IoT, dll).
 3. **Portofolio & Publikasi Karya Ilmiah/Praktis**: Manajemen artikel, studi kasus, karya, sertifikasi, riwayat pendidikan, dan pencapaian profesional oleh mentor ahli dengan optimasi kompresi gambar otomatis.
 4. **Komunikasi Langsung & Real-Time**: Fasilitas pesan instan (*Direct Chat*) satu-lawan-satu secara *real-time* berbasis *reactive WebSocket*, indikator status pesan terbaca (*read receipts*), serta badge pesan belum dibaca.
 5. **Sistem Reputasi, Penilaian, & Ulasan**: Pemberian rating bintang (skala 1–5), testimoni ulasan dari klien kepada mentor terverifikasi, serta fitur apresiasi komunitas berupa *Like Profile* dan *Like Postingan*.
@@ -101,6 +101,7 @@ Kebutuhan non-fungsional disusun menggunakan model klasifikasi **FURPS+** (*Func
 3. **Format Unggahan Gambar**: Kompresi otomatis mendukung citra bertipe JPEG, PNG, dan WebP.
 4. **Penyimpanan Berkas**: Data gambar terkompresi disimpan dalam basis data dokumen reaktif sebagai representasi data URI base64 / string CDN yang efisien.
 5. **Cakupan Wilayah Default**: Titik koordinat awal dan daftar preset kota difokuskan pada wilayah Sulawesi Utara (Manado, Tomohon, Bitung, Minahasa, Minahasa Utara, Kotamobagu, Likupang).
+6. **Ruang Lingkup Bidang Keahlian**: Batasan sistem dibatasi secara eksklusif pada praktisi dan bidang keahlian **Teknologi Informasi (IT)** beserta sub-disiplinnya (Software Engineering & Web, Mobile App Development, UI/UX & Product Design, Data Science & AI, Cybersecurity & Network, Cloud & DevOps, Robotics & Applied IoT, Database & Systems Architecture, serta IT Support).
 
 ---
 
