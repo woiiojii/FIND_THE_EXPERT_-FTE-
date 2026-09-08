@@ -1,13 +1,13 @@
 "use client";
 
-import React, { Suspense, useState, useEffect } from "react";
+import React, { useState, useEffect } from "react";
 import { useSearchParams } from "next/navigation";
 import { useAuth } from "@/context/AuthContext";
 import { useData } from "@/context/DataContext";
 import { ChatList } from "@/components/chat/ChatList";
 import { ChatWindow } from "@/components/chat/ChatWindow";
 
-function MessagesContent() {
+export default function MessagesClient() {
   const searchParams = useSearchParams();
   const directToUserId = searchParams.get("to");
 
@@ -19,26 +19,34 @@ function MessagesContent() {
   useEffect(() => {
     if (directToUserId) {
       setSelectedUserId(directToUserId);
-    } else {
-      const recent = getRecentChatUsers();
-
-      if (recent.length > 0) {
-        setSelectedUserId(recent[0].user.id);
-      } else {
-        const firstExpert = (allUsers || []).find(
-          (u) => u.role === "AHLI" && u.id !== currentUser?.id
-        );
-
-        if (firstExpert) {
-          setSelectedUserId(firstExpert.id);
-        }
-      }
+      return;
     }
-  }, [directToUserId, getRecentChatUsers, allUsers, currentUser?.id]);
+
+    const recent = getRecentChatUsers();
+
+    if (recent.length > 0) {
+      setSelectedUserId(recent[0].user.id);
+      return;
+    }
+
+    const firstExpert = (allUsers || []).find(
+      (u) => u.role === "AHLI" && u.id !== currentUser?.id
+    );
+
+    if (firstExpert) {
+      setSelectedUserId(firstExpert.id);
+    }
+  }, [
+    directToUserId,
+    getRecentChatUsers,
+    allUsers,
+    currentUser?.id,
+  ]);
 
   return (
     <div className="h-[calc(100vh-140px)] sm:h-[calc(100vh-120px)] rounded-3xl overflow-hidden border border-slate-200/80 dark:border-slate-800 shadow-xl bg-white dark:bg-slate-900 flex animate-fadeIn">
-      {/* Sidebar: Chat List */}
+      
+      {/* Sidebar */}
       <div
         className={`w-full md:w-80 lg:w-96 shrink-0 h-full ${
           selectedUserId ? "hidden md:flex" : "flex"
@@ -50,7 +58,7 @@ function MessagesContent() {
         />
       </div>
 
-      {/* Main Area: Chat Window */}
+      {/* Chat Window */}
       <div
         className={`flex-1 h-full ${
           !selectedUserId ? "hidden md:flex" : "flex"
@@ -70,19 +78,5 @@ function MessagesContent() {
         )}
       </div>
     </div>
-  );
-}
-
-export default function MessagesPage() {
-  return (
-    <Suspense
-      fallback={
-        <div className="h-[calc(100vh-140px)] flex items-center justify-center">
-          <p className="text-sm text-slate-500">Loading messages...</p>
-        </div>
-      }
-    >
-      <MessagesContent />
-    </Suspense>
   );
 }

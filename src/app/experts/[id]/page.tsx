@@ -53,36 +53,45 @@ export default function ExpertDetailPage() {
   );
   const localExpert = getExpertById(expertId);
 
-  const expert: User | null = useMemo(() => {
-    if (localExpert) return localExpert;
-    if (directConvexUser) {
-      return {
-        id: directConvexUser._id,
-        email: directConvexUser.email,
-        name: directConvexUser.name,
-        role: directConvexUser.role as UserRole,
-        latitude: directConvexUser.latitude,
-        longitude: directConvexUser.longitude,
-        avatar:
-          directConvexUser.avatar ||
-          `https://api.dicebear.com/7.x/avataaars/svg?seed=${directConvexUser.name}`,
-        lokasi_nama: directConvexUser.lokasi_nama,
-        kategori_keahlian: directConvexUser.kategori_keahlian,
-        deskripsi_bio: directConvexUser.deskripsi_bio,
-        rata_rata_rating: directConvexUser.rata_rata_rating,
-        jumlah_review: directConvexUser.jumlah_review,
-        pengalaman_tahun: directConvexUser.pengalaman_tahun,
-        telepon: directConvexUser.telepon,
-        verified: directConvexUser.verified,
-        likes: directConvexUser.likes || 0,
-        keahlian_tags: directConvexUser.keahlian_tags || [],
-        pendidikan: directConvexUser.pendidikan,
-        sertifikasi: directConvexUser.sertifikasi,
-        created_at: directConvexUser.created_at || directConvexUser._creationTime,
-      };
-    }
-    return null;
-  }, [localExpert, directConvexUser]);
+const expert: User | null = useMemo(() => {
+  if (localExpert) return localExpert;
+
+  if (
+    directConvexUser &&
+    typeof directConvexUser === "object" &&
+    "email" in directConvexUser &&
+    "name" in directConvexUser &&
+    "role" in directConvexUser
+  ) {
+    return {
+      id: directConvexUser._id,
+      email: directConvexUser.email,
+      name: directConvexUser.name,
+      role: directConvexUser.role as UserRole,
+      latitude: directConvexUser.latitude,
+      longitude: directConvexUser.longitude,
+      avatar:
+        directConvexUser.avatar ||
+        `https://api.dicebear.com/7.x/avataaars/svg?seed=${directConvexUser.name}`,
+      lokasi_nama: directConvexUser.lokasi_nama,
+      kategori_keahlian: directConvexUser.kategori_keahlian,
+      deskripsi_bio: directConvexUser.deskripsi_bio,
+      rata_rata_rating: directConvexUser.rata_rata_rating,
+      jumlah_review: directConvexUser.jumlah_review,
+      pengalaman_tahun: directConvexUser.pengalaman_tahun,
+      telepon: directConvexUser.telepon,
+      verified: directConvexUser.verified,
+      likes: directConvexUser.likes || 0,
+      keahlian_tags: directConvexUser.keahlian_tags || [],
+      pendidikan: directConvexUser.pendidikan,
+      sertifikasi: directConvexUser.sertifikasi,
+      created_at:
+        directConvexUser.created_at || directConvexUser._creationTime,
+    };
+  }
+
+  return null;
+}, [localExpert, directConvexUser]);
 
   // Sync likes count and user's like state from localStorage
   useEffect(() => {
